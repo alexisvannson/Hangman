@@ -153,4 +153,36 @@ while len(false_guesses) <= 6:
             turtle.hideturtle()
             turtle.done()
             break
+
+    # If the letter has already been guessed, continue to the next iteration of the loop.
+    if new_guess in seen_letter:
+        continue
+
+    # If the player closes the input dialog, continue to the next iteration.
+    if new_guess is None:
+        continue
+    
+    # For incorrect guesses:
+    else:
+        # Add the incorrect guess to the list of false guesses.
+        false_guesses.append(new_guess)
+        # Also add it to the list of seen letters.
+        seen_letter.append(new_guess)
+        # Update the hangman drawing to reflect the increased number of incorrect guesses.
+        drawMan(len(false_guesses))
+        
+        # If the player has made 6 incorrect guesses:
+        if len(false_guesses) == 6:
+            # Display "You Lose!" using Turtle Graphics.
+            turtle.goto(0, 225)
+            turtle.color('red')
+            turtle.write("You LOSE!", align="center", font=("Courier", 55, "bold"))
+            # Also display the correct word.
+            turtle.goto(0, 200)
+            turtle.write("The Word Was: " + random_english_word, align="center", font=("Courier", 14, "bold"))
+            # Hide the turtle and end the Turtle Graphics session.
+            turtle.hideturtle()
+            turtle.done()
+            break
+
     
