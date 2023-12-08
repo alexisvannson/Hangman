@@ -29,6 +29,7 @@ def update_display(new_guess):
     for idx, letter in enumerate(random_english_word):
         if letter == new_guess:
             seen_word[idx] = new_guess
+    display_word()
 
 
 # generate one underscore for each letter in the genrerated word
