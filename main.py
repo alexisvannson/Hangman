@@ -116,4 +116,41 @@ def drawMan(x):
         turtle.forward(60)
         turtle.penup()
 
+# in the hangman game you loose on the 7th mistake, while we are alive we can guess a letter
+# The function `display_word` is called to display the initial state of the word (probably with underscores).
 display_word()
+
+# The game continues as long as the number of false guesses is less than or equal to 6.
+while len(false_guesses) <= 6:
+    # Asking the player for a new guess using Turtle's text input dialog.
+    new_guess_not_formated = str(turtle.textinput('Hangman', 'Guess a letter:'))
+    # Converting the guess to uppercase.
+    new_guess = new_guess_not_formated.upper()
+
+    # If the guess is not the complete word and is more than one letter, it skips the rest of the loop.
+    if new_guess != random_english_word and len(new_guess) > 1:
+        continue 
+
+    # Check if the guessed letter is in the word.
+    if new_guess in random_english_word:
+        # Add the correct guess to the list of seen letters.
+        seen_letter.append(new_guess)
+        # Update the display to show the correctly guessed letter.
+        update_display(new_guess)
+        # Display all guessed letters.
+        display_guessed_letters()
+
+        # Check if the word is completely guessed or if the guess is the entire word.
+        if "_" not in seen_word or new_guess == random_english_word:
+            # Display "You Win!" using Turtle Graphics.
+            turtle.goto(0, 225)
+            turtle.color('green')
+            turtle.write("You Win!", align="center", font=("Courier", 55, "bold"))
+            # Also display the correct word.
+            turtle.goto(0, 200)
+            turtle.write("The Word Was: " + random_english_word, align="center", font=("Courier", 14, "bold"))
+            # Hide the turtle and end the Turtle Graphics session.
+            turtle.hideturtle()
+            turtle.done()
+            break
+    
